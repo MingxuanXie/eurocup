@@ -1,29 +1,28 @@
 <html>
   <head>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-extras.ocean@%5E3.5.x/dist/aframe-extras.ocean.min.js"></script>
-    <script src="https://unpkg.com/aframe-gradient-sky@1.2.0/dist/gradientsky.min.js"></script>
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="js/aframe-extras.min.js"></script>
+    <script src="js/aframe-orbit-controls.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
   <body>
-    <a-scene>
-      <a-entity id="rain" particle-system="preset: rain; color: #24CAFF; particleCount: 5000"></a-entity>
+    <a-scene
+      renderer="antialias: true; colorManagement: true; logarithmicDepthBuffer: true" 
+      loading-screen="dotsColor: #fff; backgroundColor: black" 
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+      fog="type: exponential; color: #222; density: 0.5"
+    >
+      <a-assets>
+        <a-asset-item id="model" src="/assets/euro2021-russia.glb"></a-asset-item>
+      </a-assets>
 
-      <a-entity id="sphere" geometry="primitive: sphere"
-                material="color: #EFEFEF; shader: flat"
-                position="0 0.15 -5"
-                light="type: point; intensity: 5"
-                animation="property: position; easing: easeInOutQuad; dir: alternate; dur: 1000; to: 0 -0.10 -5; loop: true"></a-entity>
+      <a-entity camera orbit-controls="target: 0 0 0; minDistance: 0.3; maxDistance: 5; initialPosition: 0 0 1"></a-entity>
+      <a-entity light="type: directional; color: #EEE; intensity: 1.3" position="0 4 4"></a-entity>
+      <a-entity light="type: ambient; color: #aaa"></a-entity>
+      <a-entity gltf-model="#model" position="0 0 0" scale="1 1 1" shadow="receive: false; cast: true"></a-entity>
 
-      <a-entity id="ocean" ocean="density: 20; width: 50; depth: 50; speed: 4"
-                material="color: #9CE3F9; opacity: 0.75; metalness: 0; roughness: 1"
-                rotation="-90 0 0"></a-entity>
-
-      <a-entity id="sky" geometry="primitive: sphere; radius: 5000"
-                material="shader: gradient; topColor: 235 235 245; bottomColor: 185 185 210"
-                scale="-1 1 1"></a-entity>
-
-      <a-entity id="light" light="type: ambient; color: #888"></a-entity>
+      <a-sky></a-sky>
     </a-scene>
   </body>
 </html>
